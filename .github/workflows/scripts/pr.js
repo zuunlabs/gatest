@@ -185,9 +185,21 @@ async function processOpenOrEditAction() {
             console.log('    Issues already has the In Review label');
         }
 
-        console.log(JSON.stringify(iss));
+        if (iss.milestone) {
+          milestones[iss.milestone.title] = true;
+        }
     });
 
+    const keys = Object.keys(milestones);
+    if (keys.length === 0) {
+      console.log('No milestones on issue(s) for this PR');
+    } else if (keys.length > 1) {
+      console.log('More than one milestone on issues for this PR');
+    } else {
+      // There is excatly 1 milestone, so use that for the PR
+      console.log(keys[0]);
+      console.log(JSON.parse(JSON.stringify(body)));
+    }
 }
 
 // Debugging
