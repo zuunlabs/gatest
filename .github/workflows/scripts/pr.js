@@ -189,9 +189,6 @@ async function processOpenOrEditAction() {
 
       if (iss.milestone) {
         milestones[iss.milestone.title] = iss.milestone.number;
-        const pr = `${event.pull_request.url}/issues/${i}`;
-        console.log(pr);
-        console.log(JSON.stringify(event.pull_request));
       }
     }
 
@@ -205,10 +202,10 @@ async function processOpenOrEditAction() {
       console.log(keys[0]);
       console.log(JSON.parse(JSON.stringify(body)));
       const milestoneNumber = milestones[keys[0]];
+      console.log('Updated PR with milstone: ' + keys[0]);
       console.log(milestoneNumber);
-
-
-
+      const pr = `${event.pull_request.url}/issues/${i}`;
+      await request.patch(pr, {milestone: milestoneNumber});
     }
 }
 
