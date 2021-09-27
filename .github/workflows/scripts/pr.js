@@ -203,7 +203,7 @@ async function processOpenOrEditAction() {
         console.log('Updating PR with milestone: ' + keys[0]);
         await request.patch(event.pull_request.issue_url, {milestone: milestoneNumber});
       } else {
-        console.log('PR is already assigned to milestone ' + leys[0]);
+        console.log('PR is already assigned to milestone ' + keys[0]);
       }
     }
 }
