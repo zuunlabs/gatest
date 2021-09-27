@@ -170,6 +170,8 @@ async function processOpenOrEditAction() {
         console.log("  This PR does not fix any issues");
     }
 
+    const milestones = {};
+
     issues.forEach(async(i) => {
         const detail = `${event.repository.url}/issues/${i}`;
         const iss = await request.fetch(detail);
@@ -182,7 +184,10 @@ async function processOpenOrEditAction() {
         } else {
             console.log('    Issues already has the In Review label');
         }
+
+        console.log(JSON.stringify(iss));
     });
+
 }
 
 // Debugging
