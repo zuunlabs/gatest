@@ -199,13 +199,10 @@ async function processOpenOrEditAction() {
       console.log('More than one milestone on issues for this PR');
     } else {
       // There is excatly 1 milestone, so use that for the PR
-      console.log(keys[0]);
-      console.log(JSON.parse(JSON.stringify(body)));
       const milestoneNumber = milestones[keys[0]];
-      console.log('Updated PR with milstone: ' + keys[0]);
+      console.log('Updating PR with milstone: ' + keys[0]);
       console.log(milestoneNumber);
-      const pr = `${event.pull_request.url}/issues/${i}`;
-      await request.patch(pr, {milestone: milestoneNumber});
+      await request.patch(event.pull_request.issue_url, {milestone: milestoneNumber});
     }
 }
 
