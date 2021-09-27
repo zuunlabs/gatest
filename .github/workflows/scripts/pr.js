@@ -170,27 +170,31 @@ async function processOpenOrEditAction() {
         console.log("  This PR does not fix any issues");
     }
 
+    console.log('Checking issues....')
+
     const milestones = {};
 
-    await issues.forEach(async(i) => {
-        const detail = `${event.repository.url}/issues/${i}`;
-        const iss = await request.fetch(detail);
-        console.log('')
-        console.log('Processing Issue #' + i + ' - ' + iss.title);
+    for (i of issues) {
+      const detail = `${event.repository.url}/issues/${i}`;
+      const iss = await request.fetch(detail);
+      console.log('')
+      console.log('Processing Issue #' + i + ' - ' + iss.title);
 
-        if (!hasLabel(iss, IN_REVIEW_LABEL)) {
-            // Add the In Review label to the issue as it does not have it
-            await resetZubeLabels(iss, IN_REVIEW_LABEL);
-        } else {
-            console.log('    Issue already has the In Review label');
-        }
+      if (!hasLabel(iss, IN_REVIEW_LABEL)) {
+          // Add the In Review label to the issue as it does not have it
+          await resetZubeLabels(iss, IN_REVIEW_LABEL);
+      } else {
+          console.log('    Issue already has the In Review label');
+      }
 
-        console.log(JSON.stringify(iss.milestone));
+      console.log(JSON.stringify(iss.milestone));
 
-        if (iss.milestone) {
-          milestones[iss.milestone.title] = true;
-        }
-    });
+      if (iss.milestone) {
+        milestones[iss.milestone.title] = true;
+      }
+    }
+
+    console.log('Checked issues and milestones');
 
     const keys = Object.keys(milestones);
     if (keys.length === 0) {
