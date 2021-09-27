@@ -165,12 +165,10 @@ async function processOpenOrEditAction() {
     const body = event.pull_request.body;
     const issues = getReferencedIssues(body);
     if (issues.length > 0) {
-        console.log('  This PR fixes issues: ' + issues.join(', '));
+        console.log('+ This PR fixes issues: #' + issues.join(', '));
     } else {
-        console.log("  This PR does not fix any issues");
+        console.log("+ This PR does not fix any issues");
     }
-
-    console.log('Checking issues....')
 
     const milestones = {};
 
@@ -200,8 +198,7 @@ async function processOpenOrEditAction() {
     } else {
       // There is excatly 1 milestone, so use that for the PR
       const milestoneNumber = milestones[keys[0]];
-      console.log('Updating PR with milstone: ' + keys[0]);
-      console.log(milestoneNumber);
+      console.log('Updating PR with milestone: ' + keys[0]);
       await request.patch(event.pull_request.issue_url, {milestone: milestoneNumber});
     }
 }
