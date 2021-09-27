@@ -172,7 +172,7 @@ async function processOpenOrEditAction() {
 
     const milestones = {};
 
-    issues.forEach(async(i) => {
+    await issues.forEach(async(i) => {
         const detail = `${event.repository.url}/issues/${i}`;
         const iss = await request.fetch(detail);
         console.log('')
@@ -182,7 +182,7 @@ async function processOpenOrEditAction() {
             // Add the In Review label to the issue as it does not have it
             await resetZubeLabels(iss, IN_REVIEW_LABEL);
         } else {
-            console.log('    Issues already has the In Review label');
+            console.log('    Issue already has the In Review label');
         }
 
         console.log(JSON.stringify(iss.milestone));
