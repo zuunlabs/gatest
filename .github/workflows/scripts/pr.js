@@ -198,8 +198,13 @@ async function processOpenOrEditAction() {
     } else {
       // There is excatly 1 milestone, so use that for the PR
       const milestoneNumber = milestones[keys[0]];
-      console.log('Updating PR with milestone: ' + keys[0]);
-      await request.patch(event.pull_request.issue_url, {milestone: milestoneNumber});
+
+      if (event.pull_request.milestone?.number !== milestoneNumber) {
+        console.log('Updating PR with milestone: ' + keys[0]);
+        await request.patch(event.pull_request.issue_url, {milestone: milestoneNumber});
+      } else {
+        console.log('PR is already assigned to milestone ' + leys[0]);
+      }
     }
 }
 
