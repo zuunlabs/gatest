@@ -185,6 +185,8 @@ async function processOpenOrEditAction() {
             console.log('    Issues already has the In Review label');
         }
 
+        console.log(JSON.stringify(iss.milestone));
+
         if (iss.milestone) {
           milestones[iss.milestone.title] = true;
         }
