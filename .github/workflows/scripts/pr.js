@@ -187,14 +187,13 @@ async function processOpenOrEditAction() {
           console.log('    Issue already has the In Review label');
       }
 
-      console.log(JSON.stringify(iss.milestone));
-
       if (iss.milestone) {
-        milestones[iss.milestone.title] = true;
+        milestones[iss.milestone.title] = iss.milestone.number;
+        const pr = `${event.pull_request.url}/issues/${i}`;
+        console.log(pr);
+        console.log(JSON.stringify(event.pull_request));
       }
     }
-
-    console.log('Checked issues and milestones');
 
     const keys = Object.keys(milestones);
     if (keys.length === 0) {
@@ -205,6 +204,11 @@ async function processOpenOrEditAction() {
       // There is excatly 1 milestone, so use that for the PR
       console.log(keys[0]);
       console.log(JSON.parse(JSON.stringify(body)));
+      const milestoneNumber = milestones[keys[0]];
+      console.log(milestoneNumber);
+
+
+
     }
 }
 
