@@ -207,10 +207,10 @@ async function processOpenOrEditAction() {
 // console.log(JSON.stringify(event, null, 2));
 
 // Look at the action
-if (event.action === 'opened') {
+if (event.action === 'opened' || event.action === 'reopened') {
     processOpenAction();
     processOpenOrEditAction();
-} else if (event.action === 'edited' || event.action === 'reopened') {
+} else if (event.action === 'edited') {
     processOpenOrEditAction();
 } else if (event.action === 'closed') {
     processClosedAction();
