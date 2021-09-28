@@ -46,7 +46,7 @@ async function resetZubeLabels(issue, label) {
 
 async function waitForLabel(issue, label) {
     let tries = 0;
-    while (!hasLabel(issue, label) || tries > 10) {
+    while (!hasLabel(issue, label) && tries < 10) {
         console.log(`  Waiting for issue to have the label ${label} (${tries})`);
 
         // Wait 10 seconds
